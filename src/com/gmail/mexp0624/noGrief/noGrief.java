@@ -83,7 +83,7 @@ public class noGrief extends JavaPlugin implements Listener
 	{
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if(!player.isPermissionSet("nogrief.command.admin") && !player.isOp()){
+			if(!player.isPermissionSet("nogrief.command.admin") || !player.isOp()){
 				 sender.sendMessage("\u00a74You do not have permission to use this command");
 				return true;
 			}
@@ -277,57 +277,5 @@ public class noGrief extends JavaPlugin implements Listener
 		}
 	}
 
-
-	   /* @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	    public void onHangingBreak(HangingBreakEvent event) {
-	        Hanging hanging = event.getEntity();
-	        World world = hanging.getWorld();
-
-	        if (event instanceof HangingBreakByEntityEvent) {
-	            HangingBreakByEntityEvent entityEvent = (HangingBreakByEntityEvent) event;
-	            Entity removerEntity = entityEvent.getRemover();
-	            if (removerEntity instanceof Projectile) {
-	                Projectile projectile = (Projectile) removerEntity;
-	                ProjectileSource remover = projectile.getShooter(); 
-	                removerEntity = (remover instanceof LivingEntity ? (LivingEntity) remover : null);
-	            }
-
-	            if (!(removerEntity instanceof Player)) {
-	                if (removerEntity instanceof Creeper) {
-	                    if (wcfg.blockCreeperBlockDamage || wcfg.blockCreeperExplosions) {
-	                        event.setCancelled(true);
-	                        return;
-	                    }
-	                    if (wcfg.useRegions && !plugin.getGlobalRegionManager().allows(DefaultFlag.CREEPER_EXPLOSION, hanging.getLocation())) {
-	                        event.setCancelled(true);
-	                        return;
-	                    }
-	                }
-
-	                // this now covers dispensers as well, if removerEntity is null above,
-	                // due to a non-LivingEntity ProjectileSource
-	                if (hanging instanceof Painting
-	                        && (wcfg.blockEntityPaintingDestroy
-	                        || (wcfg.useRegions
-	                        && !plugin.getGlobalRegionManager().allows(DefaultFlag.ENTITY_PAINTING_DESTROY, hanging.getLocation())))) {
-	                    event.setCancelled(true);
-	                } else if (hanging instanceof ItemFrame
-	                        && (wcfg.blockEntityItemFrameDestroy
-	                        || (wcfg.useRegions
-	                        && !plugin.getGlobalRegionManager().allows(DefaultFlag.ENTITY_ITEM_FRAME_DESTROY, hanging.getLocation())))) {
-	                    event.setCancelled(true);
-	                }
-	            }
-	        } else {
-	            // Explosions from mobs are not covered by HangingBreakByEntity
-	            if (hanging instanceof Painting && wcfg.blockEntityPaintingDestroy
-	                    && event.getCause() == RemoveCause.EXPLOSION) {
-	                event.setCancelled(true);
-	            } else if (hanging instanceof ItemFrame && wcfg.blockEntityItemFrameDestroy
-	                    && event.getCause() == RemoveCause.EXPLOSION) {
-	                event.setCancelled(true);
-	            }
-	        }
-	    }*/
-	    
+    
 }
