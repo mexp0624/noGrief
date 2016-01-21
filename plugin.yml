@@ -1,6 +1,6 @@
 name: noGrief
 main: com.gmail.mexp0624.noGrief.noGrief
-version: 1.0
+version: 1.0.1
 description: A plugin that lets you toggle Mob Grief status
 author: thatguy
 commands:
@@ -9,7 +9,7 @@ commands:
     description: change grief status.
     aliases: [ng]
 permissions:
-  pvp.command.admin:
+  nogrief.command.admin:
     default: op
 
 
