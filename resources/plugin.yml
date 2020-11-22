@@ -1,7 +1,7 @@
-name: noGrief
-main: com.gmail.mexp0624.noGrief.noGrief
-version: 1.0.1
-description: A plugin that lets you toggle Mob Grief status
+name: ${project.name}
+main: ${project.groupId}.noGrief
+version: ${project.version}
+description: ${project.description}
 author: thatguy
 commands:
   nogrief:
