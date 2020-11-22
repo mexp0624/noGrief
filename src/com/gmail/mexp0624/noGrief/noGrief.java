@@ -27,8 +27,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreakDoorEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.world.PortalCreateEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class noGrief extends JavaPlugin implements Listener
@@ -267,13 +267,11 @@ public class noGrief extends JavaPlugin implements Listener
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onCreatePortal(EntityCreatePortalEvent event) {
-		switch (event.getEntityType()) {
-			case ENDER_DRAGON:
-				if (blockEnderDragonPortalCreation) event.setCancelled(true);
-				break;
-			default:
-				break;
+	public void onCreatePortal(PortalCreateEvent event) {
+		Entity ent = event.getEntity();
+		if (ent instanceof EnderDragon && blockEnderDragonPortalCreation) {
+			event.setCancelled(true);
+			return;
 		}
 	}
 
