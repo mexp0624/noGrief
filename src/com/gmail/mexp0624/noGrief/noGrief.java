@@ -42,6 +42,7 @@ public class noGrief extends JavaPlugin implements Listener
 		blockWitherSkullBlockDamage,
 		blockEnderDragonBlockDamage,
 		blockFireballBlockDamage,
+		blockRavagerBlockDamage,
 		disableEndermanGriefing,
 		blockZombieDoorDestruction;
 	
@@ -55,6 +56,7 @@ public class noGrief extends JavaPlugin implements Listener
 					"block-wither-skull-block-damage",
 					"block-enderdragon-block-damage",
 					"block-fireball-block-damage",
+					"block-ravager-block-damage",
 					"disable-enderman-griefing",
 					"block-zombie-door-destruction",
 					"block-tnt-block-damage",
@@ -182,6 +184,7 @@ public class noGrief extends JavaPlugin implements Listener
 		blockWitherSkullBlockDamage = config.getBoolean("block-wither-skull-block-damage", true);
 		blockEnderDragonBlockDamage = config.getBoolean("block-enderdragon-block-damage", true);
 		blockFireballBlockDamage = config.getBoolean("block-fireball-block-damage", true);
+		blockRavagerBlockDamage = config.getBoolean("block-ravager-block-damage", true);
 		disableEndermanGriefing = config.getBoolean("disable-enderman-griefing", true);
 		blockZombieDoorDestruction = config.getBoolean("block-zombie-door-destruction", true);
 		
@@ -212,6 +215,11 @@ public class noGrief extends JavaPlugin implements Listener
 			}
 		} else if (/*ent instanceof Zombie && */event instanceof EntityBreakDoorEvent) {
 			if (blockZombieDoorDestruction) {
+				event.setCancelled(true);
+				return;
+			}
+		} else if (ent.getType() == EntityType.RAVAGER) {
+			if (blockRavagerBlockDamage) {
 				event.setCancelled(true);
 				return;
 			}
