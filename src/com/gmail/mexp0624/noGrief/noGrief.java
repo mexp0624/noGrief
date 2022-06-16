@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Allay;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Enderman;
@@ -28,7 +29,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreakDoorEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.world.PortalCreateEvent;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class noGrief extends JavaPlugin implements Listener
@@ -44,7 +47,8 @@ public class noGrief extends JavaPlugin implements Listener
 		blockFireballBlockDamage,
 		blockRavagerBlockDamage,
 		disableEndermanGriefing,
-		blockZombieDoorDestruction;
+		blockZombieDoorDestruction,
+		blockAllayPickElytra;
 	
 	public boolean blockTNTBlockDamage;
 	public boolean blockEnderDragonPortalCreation;
@@ -60,7 +64,8 @@ public class noGrief extends JavaPlugin implements Listener
 					"disable-enderman-griefing",
 					"block-zombie-door-destruction",
 					"block-tnt-block-damage",
-					"block-enderdragon-portal-creation"
+					"block-enderdragon-portal-creation",
+					"block-allay-pick-elytra"
 					);
 
 	@Override
@@ -189,11 +194,13 @@ public class noGrief extends JavaPlugin implements Listener
 		blockZombieDoorDestruction = config.getBoolean("block-zombie-door-destruction", true);
 		
 		blockTNTBlockDamage = config.getBoolean("block-tnt-block-damage", false);
-	        
-	        blockEnderDragonPortalCreation = config.getBoolean("block-enderdragon-portal-creation", true);
-	        
-	        //blockEntityPaintingDestroy = config.getBoolean("block-painting-destroy", false);
-	        //blockEntityItemFrameDestroy = config.getBoolean("block-item-frame-destroy", false);
+
+		blockEnderDragonPortalCreation = config.getBoolean("block-enderdragon-portal-creation", true);
+
+		//blockEntityPaintingDestroy = config.getBoolean("block-painting-destroy", false);
+		//blockEntityItemFrameDestroy = config.getBoolean("block-item-frame-destroy", false);
+
+		blockAllayPickElytra = config.getBoolean("block-allay-pick-elytra", true);
 	}
 	
 	 /**
@@ -283,5 +290,13 @@ public class noGrief extends JavaPlugin implements Listener
 		}
 	}
 
-    
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onEntityPickupItem(EntityPickupItemEvent ev) {
+		Entity ent = ev.getEntity();
+		if (ent instanceof Allay) {
+			Material mat = ev.getItem().getItemStack().getType();
+			if (mat != Material.ELYTRA) return;
+			ev.setCancelled(true);
+		}
+	}
 }

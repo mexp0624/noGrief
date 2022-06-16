@@ -4,7 +4,7 @@
     <groupId>com.gmail.mexp0624.noGrief</groupId>
     <artifactId>noGrief</artifactId>
     <name>noGrief</name>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>A plugin that lets you toggle Mob Grief status</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,9 +27,9 @@
             <scope>provided</scope>
         </dependency>-->
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
+            <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.4-R0.1-SNAPSHOT</version>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
